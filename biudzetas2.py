@@ -7,25 +7,35 @@ class Irasas:
 
 
 class PajamuIrasas(Irasas):
+    def __init__(self, suma, siuntejas, info):
+        super().__init__(suma)
+        self.siuntejas = siuntejas
+        self.info = info
+
     def __str__(self):
-        return f"Pajamos: {self.suma}"
+        return f"Pajamos: {self.suma}, siuntėjas - {self.siuntejas}, info: {self.info}"
 
 
 class IslaiduIrasas(Irasas):
+    def __init__(self, suma, budas, isigyta):
+        super().__init__(suma)
+        self.budas = budas
+        self.isigyta = isigyta
+
     def __str__(self):
-        return f"Išlaidos: {self.suma}"
+        return f"Išlaidos: {self.suma}, mokėjimo būdas - {self.budas}, įsigyta prekė/paslauga: {self.isigyta}"
 
 
 class Biudzetas:
     def __init__(self):
         self.zurnalas = []
 
-    def prideti_pajamu_irasa(self, suma):
-        irasas = PajamuIrasas(suma)
+    def prideti_pajamu_irasa(self, suma, siuntejas, info):
+        irasas = PajamuIrasas(suma, siuntejas, info)
         self.zurnalas.append(irasas)
 
-    def prideti_islaidu_irasa(self, suma):
-        irasas = IslaiduIrasas(suma)
+    def prideti_islaidu_irasa(self, suma, budas, isigyta):
+        irasas = IslaiduIrasas(suma, budas, isigyta)
         self.zurnalas.append(irasas)
 
     def gauti_balansa(self):
@@ -49,10 +59,14 @@ while True:
     match pasirinkimas:
         case 1:
             suma = float(input("Suma: "))
-            biudzetas.prideti_pajamu_irasa(suma)
+            siuntejas = input("Siuntėjas: ")
+            info = input("Papildoma informacija: ")
+            biudzetas.prideti_pajamu_irasa(suma, siuntejas, info)
         case 2:
             suma = float(input("Suma: "))
-            biudzetas.prideti_islaidu_irasa(suma)
+            budas = input("Mokėjimo būdas: ")
+            isigyta = input("Įsigyta prekė/paslauga: ")
+            biudzetas.prideti_islaidu_irasa(suma, budas, isigyta)
         case 3:
             print(biudzetas.gauti_balansa())
         case 4:
